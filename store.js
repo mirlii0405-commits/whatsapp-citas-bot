@@ -37,13 +37,14 @@ function addAppointment(appointment) {
   writeJSON(APPOINTMENTS_FILE, appointments);
   return newAppointment;
 }
-
 function isSlotTaken(date, time) {
   const appointments = getAppointments();
   return appointments.some(
-    (a) => a.date === date && a.time === time && a.status !== "cancelada"
+    (a) => a.fecha === date && a.hora === time && a.status !== "cancelada"
   );
 }
+
+
 
 function getSession(phone) {
   const sessions = readJSON(SESSIONS_FILE);
