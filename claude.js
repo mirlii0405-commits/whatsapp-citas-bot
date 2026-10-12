@@ -82,7 +82,31 @@ Debes responder UNICAMENTE con un JSON valido, sin texto adicional, sin markdown
     };
   }
 
-  return parsed;
+  if (
+    !parsed ||
+    typeof parsed.respuesta !== "string" ||
+    !parsed.datos ||
+    typeof parsed.datos !== "object"
+  ) {
+    return {
+      respuesta: "Perdona, he tenido un problema. ¿Puedes repetirlo?",
+      datos: session.data,
+      confirmar: false,
+      cancelar: false,
+    };
+  }
+
+  return {
+    respuesta: parsed.respuesta,
+    datos: {
+      servicio: parsed.datos.servicio ?? null,
+      fecha: parsed.datos.fecha ?? null,
+      hora: parsed.datos.hora ?? null,
+      nombre: parsed.datos.nombre ?? null,
+    },
+    confirmar: parsed.confirmar === true,
+    cancelar: parsed.cancelar === true,
+  };
 }
 
 module.exports = { procesarMensaje };
