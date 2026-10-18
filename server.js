@@ -112,10 +112,11 @@ app.post("/webhook", async (req, res) => {
     twiml.message(respuestaFinal);
     return res.type("text/xml").send(twiml.toString());
   } catch (error) {
-    console.error(
-      "Error procesando mensaje:",
-      error?.response?.data || error
-    );
+    console.error("ERROR COMPLETO:", error);
+console.error("MENSAJE:", error?.message);
+console.error("RESPUESTA GROQ:", error?.response?.data);
+console.error("CODIGO:", error?.code);
+console.error("ESTADO HTTP:", error?.response?.status);
 
     twiml.message(
       "Tenemos un problema técnico. Inténtalo de nuevo dentro de unos minutos."
